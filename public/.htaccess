@@ -2,7 +2,7 @@
 RewriteEngine On
 
     # Cette ligne permet de manière explicite, de dire au serveur Apache que le point d'entrée de l'application est l'index.php. 
-    Sachant que cet index se trouve dans le dossier dans lequel se trouve ce fichier htaccess.
+    #Sachant que cet index se trouve dans le dossier dans lequel se trouve ce fichier htaccess.
     DirectoryIndex index.php
 
 
@@ -11,8 +11,8 @@ RewriteEngine On
 
 
     # Ces lignes permettent de poser une condition : 
-        - Si l'information se trouvant dans la barre d'url après le nom de domaine n'est ni un fichier
-        - Ni un dossier 
+    #    - Si l'information se trouvant dans la barre d'url après le nom de domaine n'est ni un fichier
+    #    - Ni un dossier 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
