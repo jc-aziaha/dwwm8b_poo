@@ -1,0 +1,1 @@
+Identation des dossier dans la sidebar de vs code
