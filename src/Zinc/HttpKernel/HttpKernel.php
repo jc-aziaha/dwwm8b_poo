@@ -39,7 +39,9 @@ use Symfony\Component\HttpFoundation\Response;
             $router = $this->container->get(RouterInterface::class);
             $router_response = $router->run();
             
-            $this->getControllerResponse($router_response);
+            $response = $this->getControllerResponse($router_response);
+
+            return $response;
         }
 
 
@@ -54,9 +56,29 @@ use Symfony\Component\HttpFoundation\Response;
          */
         private function getControllerResponse(array|null $router_response) : Response
         {
+            // Si la page recherchée n'est pas trouvée
             if ( $router_response === null ) 
             {
-                // Pause
+                $controller = $this->container->get('controllers')['ErrorController'];
+
+                $response = $this->container->call([$controller, 'notFound']);
+
+                return $response;
             }
+
+
+            // Dans le cas contraire,
+            
+            // Récupérer le nom du contrôleur ainsi que sa méthode censée gérer l'évenement
+            $controller = $router_response['route']['class'];
+            $method     = $router_response['route']['method'];
+
+            if ( isset($router_response['parameters']) && !empty($router_response['parameters']) ) 
+            {
+                $parameters = $router_response['parameters'];
+                return $this->container->call([$controller, $method], [$parameters]);
+            }
+            
+            return $this->container->call([$controller, $method]);
         }
     }

@@ -12,7 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
         #[Route('/', name: "welcome.index", methods: ['GET'])]
         public function index() : Response
         {
-            dd('welcome');
+            $content = <<<HTML
+            <h1>Hello World</h1>
+
+            <p>jhbjhjgjhjkhkjkjkjkkhjk</p>
+HTML;
+            return new Response(
+                $content,
+                Response::HTTP_OK,
+                ['content-type' => 'text/html']
+            );
         }
 
 
